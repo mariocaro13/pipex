@@ -6,7 +6,7 @@
 #    By: mcaro-ro <mcaro-ro@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 16:02:56 by mcaro-ro          #+#    #+#              #
-#    Updated: 2024/12/16 20:21:09 by mcaro-ro         ###   ########.fr        #
+#    Updated: 2024/12/16 20:34:38 by mcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ CFLAGS = -Wall -Wextra -Werror $(INCLUDE_DIRS) -g3  #-fsanitize=address
 
 # Compile source files into object files and generate dependency files
 %.o: %.c
-	$(CC) -MMD -c $< $(CFLAGS) -o $@
+	@$(CC) -MMD -c $< $(CFLAGS) -o $@
 
 # Include dependency files
 -include $(DEPS)
@@ -55,14 +55,8 @@ $(NAME): $(OBJECTS) $(LIBFTPRINTF)
 	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFTPRINTF) -o $(NAME)
 	@echo "$(GREEN)$(NAME): $(NAME) has been created successfully!$(GREEN)"
 
-
 # Default target to build the project
 all: $(NAME)
-
-# Run the project
-run: re
-	@$(MAKE) all
-	./$(NAME)
 
 # Run Valgrind
 valgrind: re
@@ -86,5 +80,4 @@ norminette:
 	norminette $(NAME).h $(SOURCE)
 
 .DEFAULT_GOAL := all
-.PHONY: all clean fclean re run valgrind norminette $(FT_PRINTF)
-.SILENT:
+.PHONY: all clean fclean re valgrind norminette $(FT_PRINTF)
