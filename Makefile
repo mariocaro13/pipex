@@ -6,7 +6,7 @@
 #    By: mcaro-ro <mcaro-ro@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 16:02:56 by mcaro-ro          #+#    #+#              #
-#    Updated: 2024/12/16 20:34:38 by mcaro-ro         ###   ########.fr        #
+#    Updated: 2024/12/17 01:16:10 by mcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,22 @@ LIBFTPRINTF = $(FT_PRINTF)/libftprintf.a
 $(LIBFTPRINTF):
 	@$(MAKE) -C $(FT_PRINTF) --silent
 
+# LIBFT directory and library
+LIBFT = libft
+LIBFTLIB = $(LIBFT)/libft.a
+
+# Rule to build the LIBFT library 
+$(LIBFTLIB):
+	@$(MAKE) -C $(LIBFT) --silent
+
 # Source files and object files
-SOURCE = $(SRC_DIR)/main.c	\
-	$(UTILS_DIR)/exit_failure.c
+SOURCE = $(SRC_DIR)/main.c		\
+	$(SRC_DIR)/path.c	\
+	$(SRC_DIR)/execute_cmd.c	\
+	$(SRC_DIR)/pid.c			\
+	$(UTILS_DIR)/file_utils.c	\
+	$(UTILS_DIR)/error_utils.c	\
+	$(UTILS_DIR)/close_utils.c
 
 # Objects files
 OBJECTS = $(SOURCE:.c=.o)
@@ -51,26 +64,24 @@ CFLAGS = -Wall -Wextra -Werror $(INCLUDE_DIRS) -g3  #-fsanitize=address
 -include $(DEPS)
 
 # Link object files and FT_PRINTF library into the executable
-$(NAME): $(OBJECTS) $(LIBFTPRINTF)
-	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFTPRINTF) -o $(NAME)
+$(NAME): $(OBJECTS) $(LIBFTPRINTF) $(LIBFTLIB)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFTPRINTF) $(LIBFTLIB) -o $(NAME)
 	@echo "$(GREEN)$(NAME): $(NAME) has been created successfully!$(GREEN)"
 
 # Default target to build the project
 all: $(NAME)
 
-# Run Valgrind
-valgrind: re
-	valgrind ./$(NAME)
-
 # Clean up object files
 clean:
 	@rm -f $(OBJECTS) $(DEPS)
 	@$(MAKE) -C $(FT_PRINTF) clean --silent
+	@$(MAKE) -C $(LIBFT) clean --silent
 
 # Clean up all generated files
 fclean: clean
 	@rm -rf $(NAME) $(DEPS)
 	@$(MAKE) -C $(FT_PRINTF) fclean --silent
+	@$(MAKE) -C $(LIBFT) fclean --silent
 
 # Rebuild the project
 re: fclean all
@@ -80,4 +91,4 @@ norminette:
 	norminette $(NAME).h $(SOURCE)
 
 .DEFAULT_GOAL := all
-.PHONY: all clean fclean re valgrind norminette $(FT_PRINTF)
+.PHONY: all clean fclean re norminette
