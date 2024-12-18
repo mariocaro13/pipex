@@ -6,7 +6,7 @@
 /*   By: mcaro-ro <mcaro-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:24:04 by mcaro-ro          #+#    #+#             */
-/*   Updated: 2024/12/17 02:55:18 by mcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/18 02:57:53 by mcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_free_split(char **arr)
 {
 	size_t	i;
 
+	if (!arr)
+		return ;
 	i = 0;
 	while (arr[i])
 		free(arr[i++]);
@@ -26,7 +28,7 @@ static size_t	ft_strcount(const char *s, char c)
 {
 	size_t	count;
 
-	count = 0;
+	count = 1;
 	while (*s)
 	{
 		if (*s != c)

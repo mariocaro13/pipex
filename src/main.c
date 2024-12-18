@@ -6,7 +6,7 @@
 /*   By: mcaro-ro <mcaro-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:08:35 by mcaro-ro          #+#    #+#             */
-/*   Updated: 2024/12/17 02:41:08 by mcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/18 04:05:13 by mcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	int		pipe_fd[2];
-	pid_t	pid;
+	pid_t	pid[2];
 	t_file	infile;
 	t_file	outfile;
 
@@ -23,16 +23,20 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (ERR == pipe(pipe_fd))
 			ft_handle_error(ERR_PIPE);
-		pid = fork();
-		if (ERR == pid)
+		pid[0] = fork();
+		if (ERR == pid[0])
 			ft_handle_error(ERR_FORK);
-		if (CHILD == pid)
+		if (CHILD == pid[0])
 			ft_child_pid(&infile, pipe_fd, argv, envp);
-		else
-		{
+		pid[1] = fork();
+		if (ERR == pid[1])
+			ft_handle_error(ERR_FORK);
+		if (CHILD == pid[1])
 			ft_father_pid(&outfile, pipe_fd, argv, envp);
-			waitpid(pid, NULL, 0);
-		}
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		wait(NULL);
+		wait(NULL);
 	}
 	else
 		ft_handle_error(USAGE);

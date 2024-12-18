@@ -6,7 +6,7 @@
 /*   By: mcaro-ro <mcaro-ro@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:08:50 by mcaro-ro          #+#    #+#             */
-/*   Updated: 2024/12/17 03:06:15 by mcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/18 03:37:29 by mcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@
 # define ERR_CMD "Error: Command not found\n"
 # define ERR_EXEC "Error: Command execution failed\n"
 # define ERR_PATH "Error: Path not found\n"
+# define ERR_MALLOC "Error: malloc error\n"
 
 /** PIPES */
 # define CHILD 0
-# define FATHER 1
 
 /** PATH */
 # define PATH "PATH="
