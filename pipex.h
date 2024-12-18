@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaro-ro <mcaro-ro@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mcaro-ro <mcaro-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:08:50 by mcaro-ro          #+#    #+#             */
-/*   Updated: 2024/12/18 03:37:29 by mcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:14:44 by mcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,31 @@ typedef struct s_file
  * Return:
  *  EXIT_SUCCESS on success, EXIT_FAILURE on error.
  */
-int				main(int argc, char **argv, char **envp);
+int		main(int argc, char **argv, char **envp);
 
-void			ft_init_file(t_file *file, const char *err, int flags,
-					int permissions);
+void	ft_init_file(t_file *file, const char *err, int flags, int permissions);
 
-int				ft_open_file(t_file *file, const char *argv);
+int		ft_open_file(t_file *file, const char *argv);
 
-int				ft_child_pid(t_file *infile, int pipe_fd[2], char **argv,
-					char **envp);
+/** PID */
+int		ft_infile_pid(t_file *infile, int pipe_fd[2],
+			char **argv, char **envp);
 
-int				ft_father_pid(t_file *outfile, int pipe_fd[2], char **argv,
-					char **envp);
+int		ft_outfile_pid(t_file *outfile, int pipe_fd[2],
+			char **argv, char **envp);
 
-char			*ft_find_path(char *cmd, char **envp);
+int		ft_wait_n_pids(int n);
 
-void			ft_execute_cmd(char *cmd, char **envp);
+char	*ft_find_path(char *cmd, char **envp);
 
-void			ft_close(t_file file, int pipe_fd[2]);
+void	ft_execute_cmd(char *cmd, char **envp);
 
-void			ft_handle_error(const char *str);
+void	ft_close_pipe_fd(int pipe_fd[2]);
+
+void	ft_close_all(t_file file, int pipe_fd[2]);
+
+void	ft_handle_error(const char *str);
+
+void	ft_message(const char *str);
 
 #endif

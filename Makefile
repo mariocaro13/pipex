@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mcaro-ro <mcaro-ro@student.42madrid.com    +#+  +:+       +#+         #
+#    By: mcaro-ro <mcaro-ro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 16:02:56 by mcaro-ro          #+#    #+#              #
-#    Updated: 2024/12/18 04:28:59 by mcaro-ro         ###   ########.fr        #
+#    Updated: 2024/12/18 16:15:35 by mcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SOURCE = $(SRC_DIR)/main.c		\
 	$(SRC_DIR)/execute_cmd.c	\
 	$(SRC_DIR)/pid.c			\
 	$(UTILS_DIR)/file_utils.c	\
-	$(UTILS_DIR)/error_utils.c	\
+	$(UTILS_DIR)/print_utils.c	\
 	$(UTILS_DIR)/close_utils.c
 
 # Objects files
