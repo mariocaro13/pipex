@@ -6,7 +6,7 @@
 #    By: mcaro-ro <mcaro-ro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/16 16:02:56 by mcaro-ro          #+#    #+#              #
-#    Updated: 2024/12/18 16:15:35 by mcaro-ro         ###   ########.fr        #
+#    Updated: 2024/12/18 20:24:35 by mcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = pipex
 
 # COLORS
 GREEN = \033[0;32m
+RESET := \033[0m
 
 # SRC DIRS
 SRC_DIR = src
@@ -38,16 +39,16 @@ $(LIBFTLIB):
 	@$(MAKE) -C $(LIBFT) --silent
 
 # Source files and object files
-SOURCE = $(SRC_DIR)/main.c		\
-	$(SRC_DIR)/path.c	\
+SRC = $(SRC_DIR)/main.c			\
+	$(SRC_DIR)/path.c			\
 	$(SRC_DIR)/execute_cmd.c	\
 	$(SRC_DIR)/pid.c			\
 	$(UTILS_DIR)/file_utils.c	\
 	$(UTILS_DIR)/print_utils.c	\
 	$(UTILS_DIR)/close_utils.c
-
+	
 # Objects files
-OBJECTS = $(SOURCE:.c=.o)
+OBJECTS = $(SRC:.c=.o)
 
 # Dependency files
 DEPS = $(OBJECTS:.o=.d)
@@ -66,7 +67,7 @@ CFLAGS = -Wall -Wextra -Werror $(INCLUDE_DIRS) -g3  #-fsanitize=address
 # Link object files and FT_PRINTF library into the executable
 $(NAME): $(OBJECTS) $(LIBFTPRINTF) $(LIBFTLIB)
 	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFTPRINTF) $(LIBFTLIB) -o $(NAME)
-	@echo "$(GREEN)$(NAME): $(NAME) has been created successfully!$(GREEN)"
+	@echo "$(GREEN)$(NAME): $(NAME) has been created successfully!$(RESET)"
 
 # Default target to build the project
 all: $(NAME)
@@ -79,7 +80,7 @@ clean:
 
 # Clean up all generated files
 fclean: clean
-	@rm -rf $(NAME) $(DEPS)
+	@rm -rf $(NAME)
 	@$(MAKE) -C $(FT_PRINTF) fclean --silent
 	@$(MAKE) -C $(LIBFT) fclean --silent
 
@@ -88,7 +89,7 @@ re: fclean all
 
 # Run Norminette
 norminette: 
-	norminette $(NAME).h $(SOURCE)
+	norminette $(NAME).h $(SRC)
 
 .DEFAULT_GOAL := all
 .PHONY: all clean fclean re norminette

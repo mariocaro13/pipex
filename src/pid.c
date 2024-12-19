@@ -6,7 +6,7 @@
 /*   By: mcaro-ro <mcaro-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 22:46:00 by mcaro-ro          #+#    #+#             */
-/*   Updated: 2024/12/18 16:07:42 by mcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:35:08 by mcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,19 @@ int	ft_outfile_pid(t_file *outfile, int pipe_fd[2], char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-int	ft_wait_n_pids(int n)
+int	ft_wait_n_pids(int n, pid_t pid[2])
 {
-	while (n > 0)
+	int	status;
+	int	exit_status;
+
+	while (--n >= 0)
 	{
-		wait(NULL);
-		n--;
+		waitpid(pid[n], &status, 0);
+		if (WIFEXITED(status))
+		{
+			exit_status = WEXITSTATUS(status);
+			exit (exit_status);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

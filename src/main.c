@@ -6,7 +6,7 @@
 /*   By: mcaro-ro <mcaro-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:08:35 by mcaro-ro          #+#    #+#             */
-/*   Updated: 2024/12/18 16:13:40 by mcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:01:40 by mcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 		if (CHILD == pid[1])
 			ft_outfile_pid(&outfile, pipe_fd, argv, envp);
 		ft_close_pipe_fd(pipe_fd);
-		ft_wait_n_pids(2);
+		ft_wait_n_pids(2, pid);
 	}
 	else
 		ft_message(USAGE);
